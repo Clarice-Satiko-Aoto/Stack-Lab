@@ -1,4 +1,4 @@
-ipandas==1.4.0
+pandas==1.4.0
 numpy==1.20.0
 streamlit==1.4.0
 regex==2022.1.18
