@@ -203,6 +203,7 @@ if pagina=="Engenharia de Dados":
         st.image(image2, caption='roadmap da engenharia de dados', width=500) 
             # col3.markdown('**Pedir para aumentar a arte**')
             
+            
     col1,col2,col3 = st.columns([1,2,3])
     st.markdown("A figura acima demonstra o nosso roadmap, que distribuídos todo  o processo em um cluster foi dividido em três fases:")
     st.markdown("- Landing: Recebimento dos dados brutos. É um pequeno pré-processamento e transformação dos arquivos em parquet.")
