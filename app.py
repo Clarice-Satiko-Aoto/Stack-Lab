@@ -31,7 +31,7 @@ st.set_page_config(
     menu_items=None)
 
 
-paginas = ['Home', 'Business Intelligence', 'Engenharia de Dados', 'Equipe Koalas']
+paginas = ['Home', 'Análise Exploratória', "Análise de Sentimentos",'Roadmap do projeto', 'Equipe Koalas']
 
 ###### SIDE BAR ######
 col1, col2, col3 = st.sidebar.columns([1, 3, 1])
@@ -47,9 +47,43 @@ if pagina == 'Home':
     
     st.subheader("Análise de sentimentos")
     col1,col2,col3 = st.columns([1,2,3])
-    st.markdown("Vamos analisar o sentimento dos clientes?")
+    st.write("""
+    
+    Em meio a recuperação tímida da economia brasileira, o ano de 2018 foi marcado com a greve dos caminhoneiros em protesto contra o aumento diário nos preços do diesel, registrando prejuízos para empresas e sacrificando, mais uma vez, a população carente do nosso país.
 
+    O dólar cambial e a bolsa de valores sofreram movimentações importantes, motivados pela eleição presidencial e a guerra comercial entre os Estados Unidos da América e a China.
+
+    A empresa Olist preocupada com a satisfação dos consumidores finais do serviço prestado pelas empresas parceiras  e para a execução de um possível planejamento estratégico, demandou-nos para solucionarmos o problema dela.
+
+    Na análise exploratória, hipóteses diversas foram levantadas para iniciarmos o projeto e após validações e descartes, percebemos padrões de comportamento dos consumidores em relação ao nível de satisfação sobre a aquisição do produto.
+
+    O resultado do projeto poderá ser conferido navegando pelo menu lateral, através das abas “Análise exploratória”, “Análise de sentimento” e “Caminhos do projeto”.
+        
+    """)
+    st.write("Todos os arquivos utilizados poderão ser acessados no repositório do [GitHub](https://github.com/petersonrs/projetostack.git).")
+
+
+
+
+
+
+###### BI ######
+if pagina == 'Análise Exploratória':
+    st.subheader("Análise Exploratória")
+
+
+
+
+
+
+###### NLP ######
+if pagina == 'Análise de Sentimentos':
+    st.markdown("Você poderá analisar o sentimento dos seus clientes carregando um arquivo do tipo csv contendo os comentários.")
+    st.markdown("Estamos implementando a análise de comentários individuais para de teste de usuário.")
+    #st.markdown("---")
     col1,col2,col3 = st.columns([1,2,3])
+    col1,col2,col3 = st.columns([1,2,3])
+    # col1,col2,col3 = st.columns([1,2,3])
     uploaded_file = st.file_uploader("escolha um arquivo *.csv")
     if uploaded_file is not None:
         df2 = pd.read_csv(uploaded_file)
@@ -107,12 +141,7 @@ if pagina == 'Home':
         #carregando o modelo de predição
         modelo = pickle.load(open('3modelo20220127.pkl','rb'))
         y_pred = modelo.predict(reviews_stemmer)
-        # for c in y_pred:
-        #     print(c)
-
-
         total = len(y_pred)
-        #print(total)
         st.write("Comentários analisados:")
         st.write("Total: ", total)
 
@@ -123,85 +152,25 @@ if pagina == 'Home':
         porc_positiva = (positivo/total)*100
         porc_negativa= (negativo/total)*100
 
-        st.write("Positivos (%): ", round(porc_positiva,2))
-        st.write("Negativos(%): ", round(porc_negativa,2))
+        st.write("Positivos (%)*: ", round(porc_positiva,2))
+        st.write("Negativos(%)*: ", round(porc_negativa,2))
+        st.markdown("*poderá haver um erro de margem de 10pts para cima ou para baixo.")
         col1,col2,col3 = st.columns([1,2,3])
         col1,col2,col3 = st.columns([1,1,4])
 
-
-
-
-
-
-###### BI ######
-if pagina == 'Business Intelligence':
-    st.subheader("Business Intelligence")
-
-    # src = "https://minerandodados.com.br/como-salvar-um-modelo-de-machine-learning-em-disco/"
-    # st.components.v1.iframe(src, width=1000, height=None, scrolling=False)
-
-import streamlit as st
-import streamlit.components.v1 as components
-
-# # bootstrap 4 collapse example
-# components.html(
-#     """
-#     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-#     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-#     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-#     <div id="accordion">
-#       <div class="card">
-#         <div class="card-header" id="headingOne">
-#           <h5 class="mb-0">
-#             <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-#             Collapsible Group Item #1
-#             </button>
-#           </h5>
-#         </div>
-#         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-#           <div class="card-body">
-#             Collapsible Group Item #1 content
-#           </div>
-#         </div>
-#       </div>
-#       <div class="card">
-#         <div class="card-header" id="headingTwo">
-#           <h5 class="mb-0">
-#             <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-#             Collapsible Group Item #2
-#             </button>
-#           </h5>
-#         </div>
-#         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-#           <div class="card-body">
-#             Collapsible Group Item #2 content
-#           </div>
-#         </div>
-#       </div>
-#     </div>
-#     """,
-#     height=600,
-# )
-
-
-
-
-
-
-
+        
 ###### ENG. DADOS ######
-if pagina=="Engenharia de Dados":
-    st.subheader('Engenharia de Dados')
+if pagina=="Roadmap do projeto":
+    st.subheader('Nosso trajeto')
 
-    st.markdown("A squad Koalas optou desenvolver o projeto simulando o cotidiano de um profissional senior, buscando um diferencial no tratamento dos dados.")
-    st.markdown("Desafiamo-nos a utilizar o Databricks, uma ferramenta pouco conhecida pela squad, para orquestrar a nossa engenharia de dados por ser uma solução em cloud baseado em Apache Spark, pois permite  que profissionais de diversas áreas possam trabalhar de forma colaborativa em um único lugar.")
+    st.markdown("Optamos desenvolver o projeto simulando o cotidiano de um profissional senior, buscando um diferencial no tratamento dos dados.")
+    st.markdown("Desafiamo-nos a utilizar o Databricks, uma ferramenta pouco conhecida pela equipe, para orquestrar a nossa engenharia de dados por ser uma solução em cloud baseado em Apache Spark, pois permite  que profissionais de diversas áreas possam trabalhar de forma colaborativa em um único lugar.")
     col1,col2,col3 = st.columns([1,2,3])
     col1,col2,col3 = st.columns([1,2,3])
     col1,col2,col3 = st.columns([0.4,2,1])
     with col2:
         image2 = Image.open("databricks.png")
         st.image(image2, caption='roadmap da engenharia de dados', width=500) 
-            # col3.markdown('**Pedir para aumentar a arte**')
             
             
     col1,col2,col3 = st.columns([1,2,3])
@@ -215,7 +184,7 @@ if pagina=="Engenharia de Dados":
 
 ###### EQUIPE ######
 if pagina== "Equipe Koalas":
-    st.subheader('A Equipe')
+    st.subheader('A Squad')
     col1,col2,col3 = st.columns([1,2,3])
     col1,col2,col3 = st.columns([1,2,3])
 
@@ -277,13 +246,4 @@ if pagina== "Equipe Koalas":
             col2.write("Data Scientist Senior")  
             col2.write("[Linkedin](https://www.linkedin.com/in/peterson-rosa-silva/)")
             
-    # components.html(
-    #    """
-    #    <style>
-    #    h3{
-    #        padding-button: -30px;
-    #    }
-    #    </style>
-    
-    #    """
-    #  )
+
