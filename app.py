@@ -36,8 +36,8 @@ paginas = ['Home', 'Business Intelligence', 'Engenharia de Dados', 'Equipe Koala
 ###### SIDE BAR ######
 col1, col2, col3 = st.sidebar.columns([1, 3, 1])
 with col2:
-    # image1 = PIL.Image.open('Logokoalas.png')
-    # st.image(image1, width=120)
+    image1 = Image.open('Logokoalas.png')
+    st.image(image1, width=120)
 #col1, col2, col3 = st.sidebar.columns([1.5, 3, 1])
 
     pagina = st.sidebar.selectbox("Navegação", paginas)
