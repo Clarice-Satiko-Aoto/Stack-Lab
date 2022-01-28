@@ -9,7 +9,7 @@ import nltk
 import pickle
 
 #import streamlit.components.v1 as components
-
+import PIL
 from PIL import Image
 from nltk.corpus import stopwords
 #nltk.download('stopwords')
