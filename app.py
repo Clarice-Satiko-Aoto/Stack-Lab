@@ -49,11 +49,9 @@ if pagina == 'Home':
     col1,col2,col3 = st.columns([1,2,3])
     st.write("""
     
-    Em meio a recuperação tímida da economia brasileira, o ano de 2018 foi marcado com a greve dos caminhoneiros em protesto contra o aumento diário nos preços do diesel, registrando prejuízos para empresas e sacrificando, mais uma vez, a população carente do nosso país.
+    Em meio a recuperação tímida da economia brasileira, o ano de 2018 foi marcado com a greve dos caminhoneiros em protesto contra o aumento diário nos preços do diesel, o dólar cambial e a bolsa de valores sofreram movimentações importantes, motivados pela eleição presidencial e a guerra comercial entre os Estados Unidos da América e a China.
 
-    O dólar cambial e a bolsa de valores sofreram movimentações importantes, motivados pela eleição presidencial e a guerra comercial entre os Estados Unidos da América e a China.
-
-    A empresa Olist preocupada com a satisfação dos consumidores finais do serviço prestado pelas empresas parceiras  e para a execução de um possível planejamento estratégico, demandou-nos para solucionarmos o problema dela.
+    E a empresa Olist preocupada com a satisfação dos consumidores finais do serviço prestado pelas empresas parceiras  e para a execução de um possível planejamento estratégico, demandou-nos para solucionarmos o problema dela.
 
     Na análise exploratória, hipóteses diversas foram levantadas para iniciarmos o projeto e após validações e descartes, percebemos padrões de comportamento dos consumidores em relação ao nível de satisfação sobre a aquisição do produto.
 
@@ -169,8 +167,8 @@ if pagina=="Roadmap do projeto":
     col1,col2,col3 = st.columns([1,2,3])
     col1,col2,col3 = st.columns([0.4,2,1])
     with col2:
-        image2 = Image.open("databricks.png")
-        st.image(image2, caption='roadmap da engenharia de dados', width=500) 
+            image2 = Image.open("databricks.png")
+            st.image(image2, caption='roadmap da engenharia de dados', width=500) 
             
             
     col1,col2,col3 = st.columns([1,2,3])
