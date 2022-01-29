@@ -77,7 +77,7 @@ if pagina == 'Análise Exploratória':
 ###### NLP ######
 if pagina == 'Análise de Sentimentos':
     st.markdown("Você poderá analisar o sentimento dos seus clientes carregando um arquivo do tipo csv contendo os comentários.")
-    st.markdown("Estamos implementando a análise de comentários individuais para de teste de usuário.")
+    #st.markdown("Estamos implementando a análise de comentários individuais para de teste de usuário.")
     #st.markdown("---")
     col1,col2,col3 = st.columns([1,2,3])
     col1,col2,col3 = st.columns([1,2,3])
@@ -155,6 +155,90 @@ if pagina == 'Análise de Sentimentos':
         st.markdown("*poderá haver um erro de margem de 10pts para cima ou para baixo.")
         col1,col2,col3 = st.columns([1,2,3])
         col1,col2,col3 = st.columns([1,1,4])
+
+    #Inserindo dado novo
+    col1,col2,col3= st.columns(3)
+    col1,col2,col3= st.columns(3)
+    col1,col2,col3= st.columns(3)
+    Dado_novo= st.text_input("ou cole/digite um comentário", key="dado_novo")
+    Dado_novo = Dado_novo.split(',')
+    print(Dado_novo)
+    if Dado_novo is not None:
+
+    #### funções ####
+        def re_breakline(text_list):
+            return [re.sub('[\n\r]', ' ', r) for r in text_list]
+        reviews = Dado_novo
+        reviews_breakline = re_breakline(reviews)
+
+        def re_hiperlinks(text_list):
+            pattern = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+            return [re.sub(pattern, ' link ', r) for r in text_list]
+        reviews_hiperlinks = re_hiperlinks(reviews_breakline)
+
+        def re_dates(text_list):
+            pattern = '([0-2][0-9]|(3)[0-1])(\/|\.)(((0)[0-9])|((1)[0-2]))(\/|\.)\d{2,4}'
+            return [re.sub(pattern, ' data ', r) for r in text_list]
+        reviews_dates = re_dates(reviews_breakline)
+
+        def re_money(text_list):
+            pattern = '[R]{0,1}\$[ ]{0,}\d+(,|\.)\d+'
+            return [re.sub(pattern, ' dinheiro ', r) for r in text_list]
+        reviews_money = re_money(reviews_dates)
+
+        def re_numbers(text_list):
+            return [re.sub('[0-9]+', ' numero ', r) for r in text_list]
+        reviews_numbers = re_numbers(reviews_money)
+
+        def re_negation(text_list):
+            return [re.sub('([nN][ãÃaA][oO]|[ñÑ]| [nN] )', ' negação ', r) for r in text_list]
+        reviews_negation = re_negation(reviews_numbers)
+
+        def re_special_chars(text_list):
+            return [re.sub('\W', ' ', r) for r in text_list]
+        reviews_special_chars = re_special_chars(reviews_negation)
+
+        def re_whitespaces(text_list):
+            white_spaces = [re.sub('\s+', ' ', r) for r in text_list]
+            white_spaces_end = [re.sub('[ \t]+$', '', r) for r in white_spaces]
+            return white_spaces_end
+        reviews_whitespaces = re_whitespaces(reviews_special_chars)
+
+        def stopwords_removal(text, cached_stopwords=stopwords.words('portuguese')):
+            return [c.lower() for c in text.split() if c.lower() not in cached_stopwords]
+        reviews_stopwords = [' '.join(stopwords_removal(review)) for review in reviews_whitespaces]
+
+        def stemming_process(text, stemmer=RSLPStemmer()):
+            return [stemmer.stem(c) for c in text.split()]
+        reviews_stemmer = [' '.join(stemming_process(review)) for review in reviews_stopwords]
+        print(reviews_stemmer)
+
+
+        #carregando o modelo de predição
+        modelo = pickle.load(open('3modelo20220127.pkl','rb'))
+
+        #predição do modelo
+        y_pred = modelo.predict(reviews_stemmer)
+        print(y_pred)
+        total = len(y_pred)
+
+        #st.write(y_pred)
+        unique, counts = np.unique(y_pred, return_counts= True)
+        result = np.column_stack((unique, counts)) 
+        print (result)
+
+
+        negativo = (y_pred ==0).sum()
+        positivo = (y_pred ==1).sum()
+        porc_positiva = (positivo/total)*100
+        porc_negativa= (negativo/total)*100
+
+        
+        st.write("Possibilidade de ser positivo: ", round(porc_positiva,2), "%")
+        st.write("Possibilidade de ser negativo: ", round(porc_negativa,2), "%")
+
+
+
 
         
 ###### ENG. DADOS ######
