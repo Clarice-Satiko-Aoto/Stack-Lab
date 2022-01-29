@@ -12,7 +12,7 @@ import pickle
 import PIL
 from PIL import Image
 from nltk.corpus import stopwords
-#nltk.download('stopwords')
+nltk.download('stopwords')
 from nltk import word_tokenize
 from nltk.stem import RSLPStemmer
 #from nltk.tokenize import word_tokenize
