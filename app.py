@@ -2,8 +2,8 @@
 # carregando as bibliotecas
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
 import streamlit as st
+import streamlit.components.v1 as components
 import re
 import nltk
 import pickle
@@ -32,7 +32,7 @@ st.set_page_config(
     menu_items=None)
 
 
-paginas = ['Home', 'Análise Exploratória', "Análise de Sentimentos",'Roadmap do projeto', 'Equipe Koalas']
+paginas = ['Home', 'Análise Exploratória', "Análise de Sentimentos",'Roadmap do projeto', 'Equipe Koalas', 'Agradecimentos']
 
 ###### SIDE BAR ######
 col1, col2, col3 = st.sidebar.columns([1, 3, 1])
@@ -69,9 +69,9 @@ if pagina == 'Home':
 ###### BI ######
 if pagina == 'Análise Exploratória':
     st.subheader("Análise Exploratória")
-
-
-
+    col1,col2,col3 = st.columns([1,2,3])
+    col1,col2,col3 = st.columns([1,2,3])
+    st.components.v1.iframe("https://app.powerbi.com/view?r=eyJrIjoiZTA3OWUzMzUtNzNiNy00NWRjLTk1NDUtNTEyYWIwZDQ1N2FjIiwidCI6ImQwYzY5OGQ0LWU0ZWEtNGVlOS1hNzlkLWYyZDdhNzgzOTljOCJ9", width=600, height=400, scrolling=True)
 
 
 
@@ -164,6 +164,7 @@ if pagina == 'Análise de Sentimentos':
     Dado_novo= st.text_input("ou cole/digite um comentário", key="dado_novo")
     Dado_novo = Dado_novo.split(',')
     print(Dado_novo)
+    
     if Dado_novo is not None:
 
     #### funções ####
@@ -220,24 +221,46 @@ if pagina == 'Análise de Sentimentos':
 
         #predição do modelo
         y_pred = modelo.predict(reviews_stemmer)
-        print(y_pred)
-        total = len(y_pred)
+        #print(y_pred)
 
         #st.write(y_pred)
         unique, counts = np.unique(y_pred, return_counts= True)
-        result = np.column_stack((unique, counts)) 
-        print (result)
+        result = np.column_stack((unique, counts))
+        print(result)
+        print ("o Result é: ", result[0])
+        print("tamanho de result: ", len(result))
 
-
-        negativo = (y_pred ==0).sum()
-        positivo = (y_pred ==1).sum()
-        porc_positiva = (positivo/total)*100
-        porc_negativa= (negativo/total)*100
-
+        #bora começar a testar o negativo
+  
         
-        st.write("Possibilidade de ser positivo: ", round(porc_positiva,2), "%")
-        st.write("Possibilidade de ser negativo: ", round(porc_negativa,2), "%")
+        if len(result) == 2:
+            negativos = result[0][1]
+            positivos = result[1][1]
+            print("Sucesso negativo e positivo")
+            print("mensagem negativa e positiva", negativos, positivos)
+        else:
+            if result[0][0] == 0:
+                negativos = result[0][1]
+                positivos = 0
+                print("Sucesso negativo!")
+                print("mensagem negativa ", negativos)
+                print("mensagem positiva ", positivos)
+                #nao viajamos, o hotel não deu suporte. nao conseguimos viajar, péssimo atendimento
 
+            if result[0][0] == 1:
+                print("Sucesso positivo")
+                negativos = 0
+                positivos = result[0][1]
+                print("mensagem negativa ", negativos)
+                print("mensagem positiva ", positivos)
+                #amei a estadia, a alimentação e tudo! obrigada pela oportunidade!
+
+        if negativos > positivos:
+            st.write("😖😫😩 Conteúdo negativo")
+        elif negativos < positivos:
+            st.write('😃😄😁 Conteúdo positivo')
+        else:
+            st.write("Conteúdo neutro")
 
 
 
@@ -328,5 +351,9 @@ if pagina== "Equipe Koalas":
             col2.markdown('**Peterson Silva**')
             col2.write("Data Scientist Senior")  
             col2.write("[Linkedin](https://www.linkedin.com/in/peterson-rosa-silva/)")
-            
 
+#Agradecimentos
+if pagina== "Agradecimentos":
+    st.write("Agradecemos o apoio e o carinho dos amigos [Eduardo Moraes](https://www.linkedin.com/in/eduardo-moraes-ds/) e [Gabriel Sousa](https://www.linkedin.com/in/gabriel-sousa/) que não mediram esforços para nos auxiliar no desenvolvimento dos códigos.")
+    st.write("E não podemos deixar de lado a nossa gratidão pelas infinitas consultas feitas nos trabalhos publicados sobre NLP no [Kaggle](https://www.kaggle.com/olistbr/brazilian-ecommerce) e em especial ao [Thiago Panini](https://www.kaggle.com/thiagopanini/e-commerce-sentiment-analysis-eda-viz-nlp/notebook) e à [Camilla Fonseca](https://www.kaggle.com/camillafonseca/nlp-an-lise-de-sentimento-do-olist-para-iniciantes)! Vocês foram as nossas luzes! ")
+    st.write('Nossa jornada está apenas começando! Muito obrigado a todos!')
