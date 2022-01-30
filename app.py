@@ -354,6 +354,6 @@ if pagina== "Equipe Koalas":
 
 #Agradecimentos
 if pagina== "Agradecimentos":
-    st.write("Agradecemos o apoio e o carinho dos amigos [Eduardo Moraes](https://www.linkedin.com/in/eduardo-moraes-ds/) e [Gabriel Sousa](https://www.linkedin.com/in/gabriel-sousa/) que não mediram esforços para nos auxiliar no desenvolvimento dos códigos.")
+    st.write("Agradecemos o apoio e o carinho dos amigos [Eduardo Moraes](https://www.linkedin.com/in/eduardo-moraes-ds/), [Gabriel Sousa](https://www.linkedin.com/in/gabriel-sousa/) e [Isaac Vianna](https://www.linkedin.com/in/isaacvianna) que não mediram esforços para nos auxiliar no desenvolvimento dos códigos.")
     st.write("E não podemos deixar de lado a nossa gratidão pelas infinitas consultas feitas nos trabalhos publicados sobre NLP no [Kaggle](https://www.kaggle.com/olistbr/brazilian-ecommerce) e em especial ao [Thiago Panini](https://www.kaggle.com/thiagopanini/e-commerce-sentiment-analysis-eda-viz-nlp/notebook) e à [Camilla Fonseca](https://www.kaggle.com/camillafonseca/nlp-an-lise-de-sentimento-do-olist-para-iniciantes)! Vocês foram as nossas luzes! ")
     st.write('Nossa jornada está apenas começando! Muito obrigado a todos!')
